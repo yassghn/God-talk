@@ -1,0 +1,23 @@
+{
+  "name": "God-talk",
+  "version": "0.0.1",
+  "description": "God-talk! \"random\"-ly formulated sentences.",
+  "author": "yassghn@protonmail.com",
+  "license": "SEE LICENSE IN license",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {},
+  "devDependencies": {
+    "@types/bun": "latest",
+    "polka": "^0.5.2",
+    "sass": "^1.87.0",
+    "serve-static": "^2.2.0"
+  },
+  "peerDependencies": {
+    "en-dictionary": "^2.0.3",
+    "en-wordnet": "^2.0.11",
+    "node-nlp": "^5.0.0-alpha.5",
+    "typescript": "^5",
+    "wordnets": "^1.0.2"
+  }
+}
