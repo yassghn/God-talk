@@ -5,6 +5,7 @@
 ## clone
 
 ```gitignore
+git clone https://github.com/yassghn/God-talk
 ```
 
 ## install
@@ -19,4 +20,6 @@ bun i
 bun ./src/God-talk.js
 ```
 
-This project was created using `bun init` in bun v1.2.12. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## license
+
+[OUI](/license)
