@@ -5,6 +5,7 @@
 // main package is broken, need to git clone & build, or use old archived version
 //import wordnets from 'wordnets'
 import Dictionary from 'en-dictionary'
+import prand from 'pure-rand'
 
 // dataPath for when clone & build wordnets
 //const dataPath = 'wordnets/' + wordnets.en_wordnet_3_1.path
@@ -90,12 +91,14 @@ async function init() {
  */
 const sentenceForumalas = {
 	suggestion: [pos.adverb, pos.verb, pos.noun],
-	express: [pos.noun, pos.adverb, pos.verb, pos.noun, pos.adjective]
+	express: [pos.noun, pos.adverb, pos.verb, pos.adjective, pos.noun]
 }
 
 function getWord(wordArray) {
-	const length = wordArray.length
-	const randomIndex = Math.floor(Math.random() * length)
+	const length = wordArray.length - 1
+	const seed = Math.floor(Math.random() * length)
+	const rng = prand.xoroshiro128plus(seed)
+	const randomIndex = prand.unsafeUniformIntDistribution(0, length, rng)
 	return wordArray[randomIndex]
 }
 

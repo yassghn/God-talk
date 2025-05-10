@@ -17,6 +17,7 @@
     "en-dictionary": "^2.0.3",
     "en-wordnet": "^2.0.11",
     "node-nlp": "^5.0.0-alpha.5",
+    "pure-rand": "^7.0.1",
     "typescript": "^5",
     "wordnets": "^1.0.2"
   }
