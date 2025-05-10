@@ -17,7 +17,7 @@ bun i
 ## run
 
 ```boo
-bun ./src/God-talk.js
+bun run ./src/cli.ts -t warning -t expression -t suggestion
 ```
 
 ## license
