@@ -106,16 +106,12 @@ function processPosType(posType) {
 	switch (posType) {
 		case pos.noun:
 			return getWord(words.nouns)
-			break;
 		case pos.verb:
 			return getWord(words.verbs)
-			break;
 		case pos.adjective:
 			return getWord(words.adjectives)
-			break;
 		case pos.adverb:
 			return getWord(words.adverbs)
-			break;
 	}
 }
 
