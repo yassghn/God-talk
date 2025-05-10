@@ -60,16 +60,16 @@ import { makeSuggestion, makeExpression, makeWarning } from './God-talk.js'
         switch (cmd) {
             case _options.talk.cmds.suggestion:
                 // write suggestion to stdout
-                const suggestion = makeSuggestion()
+                const suggestion = 'suggestion: ' + makeSuggestion()
                 Bun.write(Bun.stdout, suggestion + '\n')
                 break
             case _options.talk.cmds.expression:
                 // write expression to stdout
-                const expression = makeExpression()
+                const expression = 'expression: ' + makeExpression()
                 Bun.write(Bun.stdout, expression + '\n')
                 break
             case _options.talk.cmds.warning:
-                const warning = makeWarning()
+                const warning = 'warning: ' + makeWarning()
                 Bun.write(Bun.stdout, warning + '\n')
                 break
         }
