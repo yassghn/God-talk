@@ -60,9 +60,9 @@ function printWordStats() {
 async function init() {
 	await dictionary.init()
 
-	console.dir(dictionary.__proto__)
+	/* console.dir(dictionary.__proto__)
 
-	console.log(typeof dictionary.database)
+	console.log(typeof dictionary.database) */
 	//console.log(Object.entries(dictionary.database))
 
 	/**
@@ -76,14 +76,13 @@ async function init() {
 	 * 	- map of dictionary items
 	 */
 	initWords(dictionary)
-	printWordStats()
+	/* printWordStats()
 
 	console.log('-----------------------------')
 	const target = 'please'
 	let result = dictionary.searchFor([target])
 	console.log(result.get(target))
-	console.log('-----------------------------')
-
+	console.log('-----------------------------') */
 }
 
 /**
@@ -136,4 +135,6 @@ function sentenceTest() {
 }
 
 await init()
-sentenceTest()
+//sentenceTest()
+
+export { makeSuggestion }
