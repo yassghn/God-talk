@@ -6,6 +6,7 @@
 //import wordnets from 'wordnets'
 import Dictionary from 'en-dictionary'
 import prand from 'pure-rand'
+import wordData from '../data/words.json'
 
 // dataPath for when clone & build wordnets
 //const dataPath = 'wordnets/' + wordnets.en_wordnet_3_1.path
@@ -44,13 +45,13 @@ function getAllPosWords(dictionary, posType) {
 
 function initWords(dictionary) {
 	words.nouns = getAllPosWords(dictionary, pos.noun)
-	words.pronouns = getAllPosWords(dictionary, pos.pronoun)
 	words.verbs = getAllPosWords(dictionary, pos.verb)
 	words.adjectives = getAllPosWords(dictionary, pos.adjective)
 	words.adverbs = getAllPosWords(dictionary, pos.adverb)
-	words.prepositions = getAllPosWords(dictionary, pos.preposition)
-	words.conjunctions = getAllPosWords(dictionary, pos.conjunction)
-	words.interjections = getAllPosWords(dictionary, pos.interjection)
+	words.pronouns =  wordData.words.pronouns
+	words.prepositions = wordData.words.prepositions
+	words.conjunctions = wordData.words.conjunctions
+	words.interjections = wordData.words.interjections
 }
 
 function printWordStats() {
@@ -91,7 +92,8 @@ async function init() {
  */
 const sentenceForumalas = {
 	suggestion: [pos.adverb, pos.verb, pos.noun],
-	express: [pos.noun, pos.adverb, pos.verb, pos.adjective, pos.noun]
+	express: [pos.noun, pos.adverb, pos.verb, pos.adjective, pos.noun],
+	warning: [pos.conjunction, pos.adjective, pos.pronoun, pos.adverb, pos.verb]
 }
 
 function getWord(wordArray) {
@@ -112,6 +114,14 @@ function processPosType(posType) {
 			return getWord(words.adjectives)
 		case pos.adverb:
 			return getWord(words.adverbs)
+		case pos.pronoun:
+			return getWord(words.pronouns)
+		case pos.preposition:
+			return getWord(words.prepositions)
+		case pos.conjunction:
+			return getWord(words.conjunctions)
+		case pos.interjection:
+			return getWord(words.interjections)
 	}
 }
 
@@ -139,6 +149,11 @@ function makeExpression() {
 	return expression
 }
 
+function makeWarning() {
+	const warning = _makeSetence(sentenceForumalas.warning)
+	return warning
+}
+
 await init()
 
-export { makeSuggestion, makeExpression }
+export { makeSuggestion, makeExpression, makeWarning }
