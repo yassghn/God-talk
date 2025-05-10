@@ -135,6 +135,11 @@ function makeSuggestion() {
 	return suggestion
 }
 
+function makeExpression() {
+	const expression = _makeSetence(sentenceForumalas.express)
+	return expression
+}
+
 function sentenceTest() {
 	const suggestion = makeSuggestion()
 	console.log(`suggestion: ${suggestion}`)
@@ -143,4 +148,4 @@ function sentenceTest() {
 await init()
 //sentenceTest()
 
-export { makeSuggestion }
+export { makeSuggestion, makeExpression }
