@@ -48,7 +48,7 @@ function initWords(dictionary) {
 	words.verbs = getAllPosWords(dictionary, pos.verb)
 	words.adjectives = getAllPosWords(dictionary, pos.adjective)
 	words.adverbs = getAllPosWords(dictionary, pos.adverb)
-	words.pronouns =  wordData.words.pronouns
+	words.pronouns = wordData.words.pronouns
 	words.prepositions = wordData.words.prepositions
 	words.conjunctions = wordData.words.conjunctions
 	words.interjections = wordData.words.interjections
