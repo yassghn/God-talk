@@ -89,7 +89,8 @@ async function init() {
  * test making a suggestion
  */
 const sentenceForumalas = {
-	suggestion: [pos.adverb, pos.verb, pos.noun]
+	suggestion: [pos.adverb, pos.verb, pos.noun],
+	express: [pos.noun, pos.adverb, pos.verb, pos.noun, pos.adjective]
 }
 
 function getWord(wordArray) {
@@ -115,10 +116,10 @@ function processPosType(posType) {
 	}
 }
 
-function makeSuggestion() {
+function _makeSetence(forumla) {
 	let sentence = '"'
-	const maxWords = sentenceForumalas.suggestion.length
-	sentenceForumalas.suggestion.forEach((posType, index) => {
+	const maxWords = forumla.length
+	forumla.forEach((posType, index) => {
 		sentence += processPosType(posType)
 		if (index == maxWords - 1) {
 			sentence += '."'
@@ -127,6 +128,11 @@ function makeSuggestion() {
 		}
 	})
 	return sentence
+}
+
+function makeSuggestion() {
+	const suggestion = _makeSetence(sentenceForumalas.suggestion)
+	return suggestion
 }
 
 function sentenceTest() {
