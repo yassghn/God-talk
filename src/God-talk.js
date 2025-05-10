@@ -139,12 +139,6 @@ function makeExpression() {
 	return expression
 }
 
-function sentenceTest() {
-	const suggestion = makeSuggestion()
-	console.log(`suggestion: ${suggestion}`)
-}
-
 await init()
-//sentenceTest()
 
 export { makeSuggestion, makeExpression }
