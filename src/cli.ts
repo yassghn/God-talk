@@ -60,12 +60,12 @@ import { makeSuggestion, makeExpression } from './God-talk.js'
             case _options.talk.cmds.suggestion:
                 // write suggestion to stdout
                 const suggestion = makeSuggestion()
-                Bun.write(Bun.stdout, suggestion)
+                Bun.write(Bun.stdout, suggestion + '\n')
                 break
             case _options.talk.cmds.express:
                 // write expression to stdout
                 const expression = makeExpression()
-                Bun.write(Bun.stdout, expression)
+                Bun.write(Bun.stdout, expression + '\n')
                 break
         }
     }
