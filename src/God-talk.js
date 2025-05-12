@@ -139,6 +139,13 @@ function _makeSetence(forumla) {
 	return sentence
 }
 
+function _makeContext() {
+	const length = wordData.words.nouns.length
+	const randIndex = Math.floor(Math.random() * length)
+	const context = wordData.words.nouns[randIndex]
+	return context
+}
+
 function makeSuggestion() {
 	const suggestion = _makeSetence(sentenceForumalas.suggestion)
 	return suggestion
@@ -154,6 +161,11 @@ function makeWarning() {
 	return warning
 }
 
+function makeContext() {
+	const context = _makeContext()
+	return context
+}
+
 await init()
 
-export { makeSuggestion, makeExpression, makeWarning }
+export { makeSuggestion, makeExpression, makeWarning, makeContext }

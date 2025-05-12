@@ -2,7 +2,7 @@
  * cli.ts
  */
 import { parseArgs } from 'util'
-import { makeSuggestion, makeExpression, makeWarning } from './God-talk.js'
+import { makeSuggestion, makeExpression, makeWarning, makeContext } from './God-talk.js'
 
 (function () {
     'use strict'
@@ -13,7 +13,8 @@ import { makeSuggestion, makeExpression, makeWarning } from './God-talk.js'
             cmds: {
                 suggestion: 'suggestion',
                 expression: 'expression',
-                warning: 'warning'
+                warning: 'warning',
+                context: 'context'
             }
         },
         help: {
@@ -72,6 +73,10 @@ import { makeSuggestion, makeExpression, makeWarning } from './God-talk.js'
                 const warning = 'warning: ' + makeWarning()
                 Bun.write(Bun.stdout, warning + '\n')
                 break
+            case _options.talk.cmds.context:
+                const context = 'context: ' + makeContext()
+                Bun.write(Bun.stdout, context + '\n')
+                break
         }
     }
 
@@ -89,6 +94,9 @@ import { makeSuggestion, makeExpression, makeWarning } from './God-talk.js'
                         break
                     case _options.talk.cmds.warning:
                         runCmd(_options.talk.cmds.warning)
+                        break
+                    case _options.talk.cmds.context:
+                        runCmd(_options.talk.cmds.context)
                         break
                 }
             }
