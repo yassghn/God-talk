@@ -17,7 +17,7 @@ bun i
 ## run
 
 ```boo
-bun run ./src/cli.ts -t warning -t expression -t suggestion
+bun run ./src/cli.ts -t context -t warning -t context -t expression -t context -t suggestion
 ```
 
 ## license
