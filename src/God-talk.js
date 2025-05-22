@@ -93,7 +93,8 @@ async function init() {
 const sentenceForumalas = {
 	suggestion: [pos.adverb, pos.verb, pos.noun],
 	express: [pos.noun, pos.adverb, pos.verb, pos.adjective, pos.noun],
-	warning: [pos.conjunction, pos.adjective, pos.pronoun, pos.adverb, pos.verb]
+	warning: [pos.conjunction, pos.adjective, pos.pronoun, pos.adverb, pos.verb],
+	guide: [pos.conjunction, pos.pronoun, pos.adverb, pos.verb, pos.conjunction, pos.interjection]
 }
 
 function getWord(wordArray) {
@@ -172,6 +173,11 @@ function makeWarning() {
 	return warning
 }
 
+function makeGuide() {
+	const guide = _makeSetence(sentenceForumalas.guide)
+	return guide
+}
+
 function makeContext() {
 	const context = _makeContext()
 	return context
@@ -179,4 +185,4 @@ function makeContext() {
 
 await init()
 
-export { makeSuggestion, makeExpression, makeWarning, makeContext }
+export { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide }
