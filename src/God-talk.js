@@ -140,10 +140,21 @@ function _makeSetence(forumla) {
 }
 
 function _makeContext() {
-	const length = wordData.words.nouns.length
-	const randIndex = Math.floor(Math.random() * length)
-	const context = wordData.words.nouns[randIndex]
-	return context
+	const ln = wordData.words.nouns.length
+	const lp = wordData.words.prepositions.length
+	const context = { sentence: '' }
+
+	const rni = Math.floor(Math.random() * ln)
+	context.sentence += wordData.words.nouns[rni]
+	context.sentence += ' '
+	const rpi = Math.floor(Math.random() * lp)
+	context.sentence += wordData.words.prepositions[rpi]
+	context.sentence += ' '
+	const rni2 = Math.floor(Math.random() * ln)
+	context.sentence += wordData.words.nouns[rni2]
+	context.sentence += '.'
+
+	return context.sentence
 }
 
 function makeSuggestion() {
