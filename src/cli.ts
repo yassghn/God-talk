@@ -72,19 +72,19 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, ma
                 Bun.write(Bun.stdout, expression + '\n')
                 break
             case _options.talk.cmds.warning:
-                const warning = 'warning: ' + makeWarning()
+                const warning = '   warning: ' + makeWarning()
                 Bun.write(Bun.stdout, warning + '\n')
                 break
             case _options.talk.cmds.guide:
-                const guide = 'guide: ' + makeGuide()
+                const guide = '     guide: ' + makeGuide()
                 Bun.write(Bun.stdout, guide + '\n')
                 break
             case _options.talk.cmds.explain:
-                const explain = 'explain: ' + makeExplain()
+                const explain = '   explain: ' + makeExplain()
                 Bun.write(Bun.stdout, explain + '\n')
                 break
             case _options.talk.cmds.context:
-                const context = 'context: ' + makeContext()
+                const context = '   context: ' + makeContext()
                 Bun.write(Bun.stdout, context + '\n')
                 break
         }
