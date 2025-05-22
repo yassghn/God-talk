@@ -94,7 +94,8 @@ const sentenceForumalas = {
 	suggestion: [pos.adverb, pos.verb, pos.noun],
 	express: [pos.noun, pos.adverb, pos.verb, pos.adjective, pos.noun],
 	warning: [pos.conjunction, pos.adjective, pos.pronoun, pos.adverb, pos.verb],
-	guide: [pos.conjunction, pos.pronoun, pos.adverb, pos.verb, pos.conjunction, pos.interjection]
+	guide: [pos.conjunction, pos.pronoun, pos.adverb, pos.verb, pos.conjunction, pos.interjection],
+	explain: [pos.pronoun, pos.noun, pos.verb, pos.noun, pos.interjection, pos.adjective, pos.noun]
 }
 
 function getWord(wordArray) {
@@ -178,6 +179,11 @@ function makeGuide() {
 	return guide
 }
 
+function makeExplain() {
+	const explain = _makeSetence(sentenceForumalas.explain)
+	return explain
+}
+
 function makeContext() {
 	const context = _makeContext()
 	return context
@@ -185,4 +191,4 @@ function makeContext() {
 
 await init()
 
-export { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide }
+export { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, makeExplain }

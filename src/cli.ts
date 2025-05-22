@@ -2,7 +2,7 @@
  * cli.ts
  */
 import { parseArgs } from 'util'
-import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide } from './God-talk.js'
+import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, makeExplain } from './God-talk.js'
 
 (function () {
     'use strict'
@@ -15,7 +15,8 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide } f
                 expression: 'expression',
                 warning: 'warning',
                 context: 'context',
-                guide: 'guide'
+                guide: 'guide',
+                explain: 'explain'
             }
         },
         help: {
@@ -78,6 +79,10 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide } f
                 const guide = 'guide: ' + makeGuide()
                 Bun.write(Bun.stdout, guide + '\n')
                 break
+            case _options.talk.cmds.explain:
+                const explain = 'explain: ' + makeExplain()
+                Bun.write(Bun.stdout, explain + '\n')
+                break
             case _options.talk.cmds.context:
                 const context = 'context: ' + makeContext()
                 Bun.write(Bun.stdout, context + '\n')
@@ -102,6 +107,9 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide } f
                         break
                     case _options.talk.cmds.guide:
                         runCmd(_options.talk.cmds.guide)
+                        break
+                    case _options.talk.cmds.explain:
+                        runCmd(_options.talk.cmds.explain)
                         break
                     case _options.talk.cmds.context:
                         runCmd(_options.talk.cmds.context)
