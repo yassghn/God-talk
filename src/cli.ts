@@ -59,33 +59,67 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, ma
         return true
     }
 
+    interface Emitter {
+        set: string
+        reset: string
+    }
+
+    async function _hewEmitter(): Promise<Emitter> {
+        // init return
+        const emitter: Emitter = { set: '', reset: '' }
+        // create proc to set terminal foreground
+        const set = Bun.spawn(['tput', 'setaf', '1'])
+        // create proc to reset terminal properties
+        const reset = Bun.spawn(['tput', 'sgr0'])
+        // get emitter text values
+        const setColor = await new Response(set.stdout).text()
+        const resetColor = await new Response(reset.stdout).text()
+        // set return vals
+        emitter.set = setColor
+        emitter.reset = resetColor
+        return emitter
+    }
+
+    async function _applyEmitter(str: string) {
+        // get emitter
+        const emitter = await _hewEmitter()
+        // create string with emitter colors
+        const newStr = `${emitter.set}${str}${emitter.reset}`
+        return newStr
+    }
+
+    async function stdout(label: string, str: string) {
+        const coloredLabel = await _applyEmitter(label)
+        Bun.write(Bun.stdout, coloredLabel + str + '\n')
+    }
+
     function runCmd(cmd: string) {
         switch (cmd) {
             case _options.talk.cmds.suggestion:
                 // write suggestion to stdout
-                const suggestion = 'suggestion: ' + makeSuggestion()
-                Bun.write(Bun.stdout, suggestion + '\n')
+                const suggestion = makeSuggestion()
+                stdout('suggestion: ', suggestion)
                 break
             case _options.talk.cmds.expression:
                 // write expression to stdout
-                const expression = 'expression: ' + makeExpression()
-                Bun.write(Bun.stdout, expression + '\n')
+                const expression = makeExpression()
+                stdout('expression: ', expression)
                 break
             case _options.talk.cmds.warning:
-                const warning = '   warning: ' + makeWarning()
-                Bun.write(Bun.stdout, warning + '\n')
+                const warning = makeWarning()
+                stdout('   warning: ', warning)
                 break
             case _options.talk.cmds.guide:
-                const guide = '     guide: ' + makeGuide()
-                Bun.write(Bun.stdout, guide + '\n')
+                const guide = makeGuide()
+                stdout('     guide: ', guide)
                 break
             case _options.talk.cmds.explain:
-                const explain = '   explain: ' + makeExplain()
-                Bun.write(Bun.stdout, explain + '\n')
+                const explain = makeExplain()
+                stdout('   explain: ', explain)
                 break
             case _options.talk.cmds.context:
-                const context = '   context: ' + makeContext()
-                Bun.write(Bun.stdout, context + '\n')
+                const context = makeContext()
+                stdout('   context: ', context)
                 break
         }
     }
