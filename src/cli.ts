@@ -1,7 +1,8 @@
 /**
  * cli.ts
  */
-import { parseArgs } from 'util'
+import { parseArgs, styleText } from 'util'
+import { stdout } from 'process'
 import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, makeExplain } from './God-talk.js'
 
 (function () {
@@ -59,37 +60,14 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, ma
         return true
     }
 
-    interface Emitter {
-        set: string
-        reset: string
+    function _applyEmitter(str: string): string {
+        const ret = { str: '' }
+        ret.str += styleText('red', str, { stream: stdout, validateStream: true})
+        return ret.str
     }
 
-    async function _hewEmitter(): Promise<Emitter> {
-        // init return
-        const emitter: Emitter = { set: '', reset: '' }
-        // create proc to set terminal foreground
-        const set = Bun.spawn(['tput', 'setaf', '1'])
-        // create proc to reset terminal properties
-        const reset = Bun.spawn(['tput', 'sgr0'])
-        // get emitter text values
-        const setColor = await new Response(set.stdout).text()
-        const resetColor = await new Response(reset.stdout).text()
-        // set return vals
-        emitter.set = setColor
-        emitter.reset = resetColor
-        return emitter
-    }
-
-    async function _applyEmitter(str: string) {
-        // get emitter
-        const emitter = await _hewEmitter()
-        // create string with emitter colors
-        const newStr = `${emitter.set}${str}${emitter.reset}`
-        return newStr
-    }
-
-    async function stdout(label: string, str: string) {
-        const coloredLabel = await _applyEmitter(label)
+    function echo(label: string, str: string) {
+        const coloredLabel = _applyEmitter(label)
         Bun.write(Bun.stdout, coloredLabel + str + '\n')
     }
 
@@ -98,28 +76,28 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, ma
             case _options.talk.cmds.suggestion:
                 // write suggestion to stdout
                 const suggestion = makeSuggestion()
-                stdout('suggestion: ', suggestion)
+                echo('suggestion: ', suggestion)
                 break
             case _options.talk.cmds.expression:
                 // write expression to stdout
                 const expression = makeExpression()
-                stdout('expression: ', expression)
+                echo('expression: ', expression)
                 break
             case _options.talk.cmds.warning:
                 const warning = makeWarning()
-                stdout('   warning: ', warning)
+                echo('   warning: ', warning)
                 break
             case _options.talk.cmds.guide:
                 const guide = makeGuide()
-                stdout('     guide: ', guide)
+                echo('     guide: ', guide)
                 break
             case _options.talk.cmds.explain:
                 const explain = makeExplain()
-                stdout('   explain: ', explain)
+                echo('   explain: ', explain)
                 break
             case _options.talk.cmds.context:
                 const context = makeContext()
-                stdout('   context: ', context)
+                echo('   context: ', context)
                 break
         }
     }
