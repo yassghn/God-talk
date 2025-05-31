@@ -5,7 +5,7 @@ import { parseArgs, styleText } from 'util'
 import { stdout } from 'process'
 import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, makeExplain } from './God-talk.js'
 
-(function () {
+(async function () {
     'use strict'
 
     const _options = {
@@ -66,65 +66,65 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, ma
         return ret.str
     }
 
-    function echo(label: string, str: string) {
+    async function echo(label: string, str: string) {
         const coloredLabel = _applyEmitter(label)
-        Bun.write(Bun.stdout, coloredLabel + str + '\n')
+        await Bun.write(Bun.stdout, coloredLabel + str + '\n')
     }
 
-    function runCmd(cmd: string) {
+    async function runCmd(cmd: string) {
         switch (cmd) {
             case _options.talk.cmds.suggestion:
                 // write suggestion to stdout
                 const suggestion = makeSuggestion()
-                echo('suggestion: ', suggestion)
+                await echo('suggestion: ', suggestion)
                 break
             case _options.talk.cmds.expression:
                 // write expression to stdout
                 const expression = makeExpression()
-                echo('expression: ', expression)
+                await echo('expression: ', expression)
                 break
             case _options.talk.cmds.warning:
                 const warning = makeWarning()
-                echo('   warning: ', warning)
+                await echo('   warning: ', warning)
                 break
             case _options.talk.cmds.guide:
                 const guide = makeGuide()
-                echo('     guide: ', guide)
+                await echo('     guide: ', guide)
                 break
             case _options.talk.cmds.explain:
                 const explain = makeExplain()
-                echo('   explain: ', explain)
+                await echo('   explain: ', explain)
                 break
             case _options.talk.cmds.context:
                 const context = makeContext()
-                echo('   context: ', context)
+                await echo('   context: ', context)
                 break
         }
     }
 
-    function talkCmd(args: string[]) {
+    async function talkCmd(args: string[]) {
         // verify talk commands
         if (talkCmdsVerified(args)) {
             // iterate talk commands
             for (const arg of args) {
                 switch (arg) {
                     case _options.talk.cmds.suggestion:
-                        runCmd(_options.talk.cmds.suggestion)
+                        await runCmd(_options.talk.cmds.suggestion)
                         break
                     case _options.talk.cmds.expression:
-                        runCmd(_options.talk.cmds.expression)
+                        await runCmd(_options.talk.cmds.expression)
                         break
                     case _options.talk.cmds.warning:
-                        runCmd(_options.talk.cmds.warning)
+                        await runCmd(_options.talk.cmds.warning)
                         break
                     case _options.talk.cmds.guide:
-                        runCmd(_options.talk.cmds.guide)
+                        await runCmd(_options.talk.cmds.guide)
                         break
                     case _options.talk.cmds.explain:
-                        runCmd(_options.talk.cmds.explain)
+                        await runCmd(_options.talk.cmds.explain)
                         break
                     case _options.talk.cmds.context:
-                        runCmd(_options.talk.cmds.context)
+                        await runCmd(_options.talk.cmds.context)
                         break
                 }
             }
@@ -151,7 +151,7 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, ma
         await Bun.write(Bun.stdout, helpStr)
     }
 
-    function processOptions() {
+    async function processOptions() {
         // get cli args
         const args = getCliArgs()
         // iterate cli args
@@ -159,7 +159,7 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, ma
             switch (arg) {
                 case _options.talk.name:
                     if (args.talk) {
-                        talkCmd(args.talk)
+                        await talkCmd(args.talk)
                     }
                     break
                 case _options.help.name:
@@ -171,9 +171,10 @@ import { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, ma
         }
     }
 
-    function cli() {
-        processOptions()
+    async function cli() {
+        await processOptions()
     }
 
-    cli()
+    await cli()
+
 })()
