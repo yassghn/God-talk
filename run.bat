@@ -1,0 +1,1 @@
+bun run .\src\cli.ts -t warning -t explain -t expression -t guide -t suggestion -t context -t warning -t explain -t expression -t guide -t suggestion -t context -t warning -t explain -t expression -t guide -t suggestion -t context
