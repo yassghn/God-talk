@@ -8,6 +8,7 @@ import {
   makeExpression,
   makeWarning,
   makeContext,
+  makeRandom,
   makeGuide,
   makeExplain,
 } from "./God-talk.js";
@@ -28,6 +29,9 @@ import prand from "pure-rand";
         explain: "explain",
       },
     },
+    random: {
+      name: "random",
+    },
     question: {
       name: "question",
     },
@@ -46,6 +50,11 @@ import prand from "pure-rand";
           type: "string",
           multiple: true,
           short: "t",
+        },
+        random: {
+          type: "boolean",
+          multiple: true,
+          short: "r",
         },
         question: {
           type: "string",
@@ -149,10 +158,15 @@ import prand from "pure-rand";
     }
   }
 
+  async function randomCmd() {
+      const random = makeRandom();
+      await echo("    random: ", random)
+  }
+
   /**
    * https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript
    * @param str
-   * @returns 
+   * @returns
    */
   function cyrb128(str: string) {
     let h1 = 1779033703,
@@ -186,17 +200,17 @@ import prand from "pure-rand";
       "unknown",
       "other",
     ];
-    const arr = cyrb128(arg)
-    const idot = arr.pop() + arr.pop() + arr.pop() + arr.pop()
-    const rl = responses.length - 1
-    const seed = Math.floor(Math.random() * idot)
-    const rng = prand.xoroshiro128plus(seed)
+    const arr = cyrb128(arg);
+    const idot = arr.pop() + arr.pop() + arr.pop() + arr.pop();
+    const rl = responses.length - 1;
+    const seed = Math.floor(Math.random() * idot);
+    const rng = prand.xoroshiro128plus(seed);
     const randIndex = prand.unsafeUniformIntDistribution(0, rl, rng);
-    const reply = responses[randIndex]
+    const reply = responses[randIndex];
     if (reply) {
-      await echo("     reply: ", reply)
+      await echo("     reply: ", reply);
     } else {
-      console.error("error in reply, try rl - 1 probably")
+      console.error("error in reply, try rl - 1 probably");
     }
   }
 
@@ -231,6 +245,11 @@ import prand from "pure-rand";
         case _options.talk.name:
           if (args.talk) {
             await talkCmd(args.talk);
+          }
+          break;
+        case _options.random.name:
+          if (args.random) {
+            await randomCmd();
           }
           break;
         case _options.question.name:
