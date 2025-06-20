@@ -141,6 +141,58 @@ function _makeSetence(forumla) {
 	return sentence
 }
 
+function _getRandNumWords(min, max) {
+	const seed = Math.floor(Math.random() * min * max)
+	const rng = prand.xoroshiro128plus(seed)
+	const numWords = prand.unsafeUniformIntDistribution(min, max, rng)
+	return numWords
+}
+
+function _getRandPos() {
+	const keys = Object.keys(pos)
+	const length = keys.length
+	const seed = Math.floor(Math.random() * length)
+	const rng = prand.xoroshiro128plus(seed)
+	const index = prand.unsafeUniformIntDistribution(0, length-1, rng)
+	const _pos = keys[index]
+	return _pos.valueOf()
+}
+
+function _getRandWordFromPos(_pos) {
+	const _words = words[_pos + 's']
+	const length = _words.length
+	const seed = Math.floor(Math.random() * length)
+	const rng = prand.xoroshiro128plus(seed)
+	const index = prand.unsafeUniformIntDistribution(0, length-1, rng)
+	const word = _words[index].valueOf()
+	return word.valueOf()
+}
+
+function _getRandWord() {
+	const _pos = _getRandPos()
+	const word = _getRandWordFromPos(_pos)
+	return word.valueOf()
+}
+
+function _getRandWords(numWords) {
+	const words = []
+	for (let i = 0; i < numWords; i++) {
+		const word = _getRandWord()
+		words.push(word)
+	}
+	return words
+}
+
+function _makeRandom() {
+	const minWords = 4
+	const maxWords = 15
+	const numWords = _getRandNumWords(minWords, maxWords)
+	const randWords = _getRandWords(numWords)
+	const sentence = { str: randWords.join(' ') }
+	sentence.str += '.'
+	return sentence.str
+}
+
 function _makeContext() {
 	const ln = wordData.words.nouns.length
 	const lp = wordData.words.prepositions.length
@@ -189,6 +241,11 @@ function makeContext() {
 	return context
 }
 
+function makeRandom() {
+	const random = _makeRandom()
+	return random
+}
+
 await init()
 
-export { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, makeExplain }
+export { makeSuggestion, makeExpression, makeWarning, makeContext, makeGuide, makeExplain, makeRandom }
